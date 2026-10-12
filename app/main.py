@@ -25,20 +25,19 @@ setup_logger()
 logger = logging.getLogger(__name__)
 
 
-# Прокси для локальной разработки.
-# TODO: удалить при деплое на сервер.
-PROXY_URL = "http://127.0.0.1:10809"
-
-
 async def main() -> None:
     logger.info(f"Запуск бота «Бритвина» версии {__version__}...")
 
     # 0. Инициализируем БД (создаём таблицы)
     await init_db()
 
-    # 1. Сессия с прокси
-    session = AiohttpSession(proxy=PROXY_URL)
-    logger.info(f"Использую прокси: {PROXY_URL}")
+    # 1. Сессия: с прокси, если он задан в .env, иначе — напрямую
+    if settings.proxy_url:
+        session = AiohttpSession(proxy=settings.proxy_url)
+        logger.info(f"Использую прокси: {settings.proxy_url}")
+    else:
+        session = AiohttpSession()
+        logger.info("Прокси не используется (прямое подключение)")
 
     # 2. Бот и диспетчер (с FSM-хранилищем)
     bot = Bot(token=settings.bot_token, session=session)

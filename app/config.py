@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     admin_ids: str                    # ID админов через запятую (строка)
     log_level: str = "INFO"           # уровень логов, по умолчанию INFO
     db_path: str = "data/bot.db"      # путь к базе данных
+    proxy_url: str = ""  # ← НОВОЕ. Пусто = без прокси.
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",   # откуда читать
