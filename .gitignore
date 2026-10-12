@@ -1,0 +1,27 @@
+# Виртуальное окружение
+.venv/
+venv/
+
+# Секреты
+.env
+
+# База данных
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Логи
+logs/*.log
+logs/*.log.*
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm
+.idea/
+
+# Прочее
+.DS_Store
+*.bak
